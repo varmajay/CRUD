@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+  font-family: Arial;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<body>
+<p style="margin-left: 600px; color: blue;">ADD DATA:</p>
+{% if msg %}
+<p style="color: rebeccapurple;">{{msg}}</p>
+{% endif %}
+<div class="container">
+  <form action="{% url 'index' %}" method="post">
+    {% csrf_token %}
+    <label for="fname">Name</label>
+    <input type="text"  name="name" placeholder="Your name..">
+
+    <label for="lname">Email</label>
+    <input type="text" name="email" placeholder="Your Email..">
+    
+    <label for="lname">Phone</label>
+    <input type="text"  name="phone" placeholder="Your Phone..">
+
+    <label for="lname">Password</label>
+    <input type="text" name="password" placeholder="Your Password..">
+    
+  
+    <input type="submit" value="ADD">
+  </form>
+</div>
+<br>
+<br>
+<h1 style="margin-left: 600px; color: blue;">View Data
+</h1>
+<table>
+  <tr>
+    <th>NAME</th>
+    <th>EMAIL</th>
+    <th>PHONE</th>
+    <th>PASSWORD</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  {% for one in uid%}
+  <tr>
+    <td>{{one.name}}</td>
+    <td>{{one.email}}</td>
+    <td>{{one.phone}}</td>
+    <td>{{one.password}}</td>
+    <td><a href="{% url 'edit' one.id %}"><button type="button">Edit</button></a></td>
+    <td><a href="{% url 'delete' one.id %}"><button type="button">Delete</button></a></td>
+  </tr>
+  {% endfor%}
+</table>
+
+
+</body>
+</html>
